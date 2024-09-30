@@ -1,0 +1,23 @@
+{% load static %}
+{% load thumbnail %}
+{% for user in users %}
+    <div class="user">
+      <a href="{{ user.get_absolute_url }}"> 
+        {% comment %} {% if user.profile.photo %} {# photo thumbnail #} {% endcomment %}
+          {% comment %} {# default image #} {% endif %} {% endcomment %}
+          {% comment %} {% else %} {% endcomment %}
+        {% comment %} <div class="user-initials"> {% endcomment %}
+            {% comment %} <img src="{% thumbnail {% static "images/prof.png" %} 180x180 %} "> {% endcomment %}
+            {% comment %} {% ''.join([name[0].upper for name in user.get_full_name.split]) %} {% endcomment %}
+        {% comment %} </div>  {% endcomment %}
+        {% comment %} {% endif %} {% endcomment %}
+        <img src="{% if user.profile.photo %}  {% thumbnail user.profile.photo 180x180 %} 
+                  {% else %} {% static "images/prof.png" %} {% endif %}"> 
+      </a>
+      <div class="info">
+        <a href="{{ user.get_absolute_url }}" class="title">
+          {{ user.get_full_name }}
+        </a>
+      </div>
+    </div>
+{% endfor %}
